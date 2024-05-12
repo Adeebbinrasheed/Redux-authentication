@@ -76,6 +76,22 @@ const profileUser=asyncHandler(async(req,res,next)=>{
 
 //updatedprofile
 const updateUserProfile=asyncHandler(async(req,res,next)=>{
-  res.status(201).json({success:true,message:"updated profile"})
+  const user=await User.findById(req.user._id)
+  if(user){
+    user.name=req.body.name || user.name
+    user.email=req.body.email || user.email
+    if(req.body.password){
+      user.password=req.body.password
+    }
+    
+  }else{
+    return next(new ErrorHandler("user not found",404))
+  }
+const updatedUser=await user.save()
+  res.status(201).json({
+    _id:updatedUser._id,
+    email:updatedUser.email,
+    name:updatedUser.name
+  })
 })
 module.exports = { authUser, registerUser, logoutUser,profileUser,updateUserProfile };
