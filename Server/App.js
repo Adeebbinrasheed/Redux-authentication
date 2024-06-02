@@ -21,5 +21,6 @@ app.use(ErrorMiddleware);
 const connectDb = require("./Db/connectDb");
 connectDb();
 
+//server connection
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`server is listening on port ${port}`));

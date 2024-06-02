@@ -18,6 +18,7 @@ const authUser = asyncHandler(async (req, res, next) => {
   // console.log(user);
   const isPasswordValid = await user.comparePassword(password);
   // console.log(isPasswordValid);
+
   if (!isPasswordValid) {
     return next(new ErrorHandler("Invalid credentials", 400));
   }
@@ -27,6 +28,7 @@ const authUser = asyncHandler(async (req, res, next) => {
 });
 
 //register user
+
 const registerUser = asyncHandler(async (req, res, next) => {
   const { name, email, password } = req.body;
 
@@ -61,7 +63,7 @@ const logoutUser = asyncHandler(async (req, res, next) => {
     httpOnly: true,
     expires: new Date(0),
   });
-  res.status(201).json({ success: true, message: "user logged succesfully" });
+  res.status(201).json({ success: true, message: "user logged out succesfully" });
 });
 
 //profile
